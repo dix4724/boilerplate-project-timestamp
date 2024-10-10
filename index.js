@@ -24,6 +24,19 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+// endpoint for requests with dates (/api/:date?)
+app.get("/api/:date", (req, res) => {
+  let dateInput = req.params.date;
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD format
+  if (dateRegex.test(dateInput)) {
+    let dateObject = new Date(dateInput);
+    res.json({ unix: dateObject.valueOf(), utc: dateObject.toUTCString() });
+  } else {
+    let dateInt = parseInt(dateInput);
+    res.json({ unix: dateInput, utc: new Date(dateInt).toUTCString() });
+  }
+});
+
 
 
 // Listen on port set in environment variable or default to 3000
