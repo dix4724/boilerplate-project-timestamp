@@ -32,7 +32,7 @@ app.get("/api/:date", (req, res) => {
     let dateObject = new Date(dateInput);
     res.json({ unix: dateObject.valueOf(), utc: dateObject.toUTCString() });
   } else {
-    let dateInt = parseInt(dateInput);
+    let dateInt = Number(dateInput);
     res.json({ unix: dateInt, utc: new Date(dateInt).toUTCString() });
   }
 });
